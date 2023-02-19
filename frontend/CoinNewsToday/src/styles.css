@@ -1,1 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: white;
+}
+
+html {
+    background-color: #222222;
+}

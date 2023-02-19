@@ -1,0 +1,33 @@
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+    border-radius: 10px;
+}
+
+li {
+    float: left;
+    text-decoration: none;
+}
+
+li p {
+    text-align: center;
+    padding: 3px 30px;
+    text-decoration: none !important;
+}
+
+li:hover {
+    background-color: #111;
+}
+
+.ul:first-child {
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+}
+
+.ul:last-child {
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
