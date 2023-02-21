@@ -1,8 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 body {
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     color: white;
-    margin: 0px 8px;
+    margin: 0px 0px;
 }
 
 html {
@@ -13,7 +13,6 @@ html {
 .container {
     align-items: center;
     justify-content: center;
-    margin: 0px 100px;
 }
 
 .row {
