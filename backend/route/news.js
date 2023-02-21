@@ -19,9 +19,6 @@ router.get("/", async (req, res) => {
       );
       const content = await requestTranslatte.translatedText(data[i].content);
       console.log(i);
-      // console.log(titre);
-      // console.log(description);
-      // console.log(content);
       let resultat;
       try {
       resultat = await request.insertArticle(

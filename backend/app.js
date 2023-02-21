@@ -10,6 +10,7 @@ const auths = require('./route/auth');
 const news = require('./route/news')
 const article = require("./route/articles")
 const article_scan = require("./route/articles_scan")
+const price = require("./route/price")
 
 const PORT = process.env.PORT || 3000;
 
@@ -22,6 +23,7 @@ app.use('/', auths);
 app.use('/news', news);
 app.use('/article',article)
 app.use('/article_scan',article_scan)
+app.use('/price',price)
 
 app.listen(PORT, () => {
     console.log(`Mon application roule sur -> http://localhost:${PORT}\n`);
