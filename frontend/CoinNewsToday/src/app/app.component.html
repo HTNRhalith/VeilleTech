@@ -1,9 +1,25 @@
-<nav>
-  <ul>
-    <li><p routerLink="home">Home</p></li>
-    <li><p routerLink="prices">Prices</p></li>
-    <li style="float: right;"><p routerLink="login" >Login</p></li>
-  </ul>
-</nav>
-
-<router-outlet></router-outlet>
+<div class="container">
+  <div class="row" style="background-color: #333; padding: 0px 15px;">
+    <p class="banner">CoinNews Today</p>
+  </div>
+  <nav>
+    <ul>
+      <li>
+        <p routerLink="home">Home</p>
+      </li>
+      <li>
+        <p routerLink="articles">Articles</p>
+      </li>
+      <li>
+        <p routerLink="prices">Prices</p>
+      </li>
+      <li style="float: right;">
+        <p routerLink="login">Login</p>
+      </li>
+      <li style="float: right;">
+        <p routerLink="signup">Sign up</p>
+      </li>
+    </ul>
+  </nav>
+  <router-outlet></router-outlet>
+</div>
