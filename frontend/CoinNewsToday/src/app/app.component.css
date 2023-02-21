@@ -9,6 +9,7 @@ ul {
 li {
     float: left;
     text-decoration: none;
+    cursor: pointer;
 }
 
 li p {
@@ -17,21 +18,9 @@ li p {
     text-decoration: none !important;
 }
 
-li:hover {
-    background-color: #111;
-}
 
-.banner {
+.title {
     padding: 10px;
-    font-size: xx-large;
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-}
-
-.banner::first-letter {
-    background-color: green;
-    border-radius: 50%;
-    border: 6px solid rgb(1, 78, 1);
-    font-size: 1.5em;
-    padding: 0px 12px 0px 10px;
-    margin-right: 2px;
+    cursor: default;
+    font-weight: bolder;
 }

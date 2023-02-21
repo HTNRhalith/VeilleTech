@@ -4,10 +4,10 @@
         <hr>
         <br>
         <label for="username">Username</label>
-        <input class="form-input" placeholder="Enter your username..." for="username" name="username" type="text">
+        <input [(ngModel)]="username" class="form-input" placeholder="Enter your username..." for="username" name="username" type="text">
         <br>
         <label for="password">Password</label>
-        <input class="form-input" placeholder="Enter your password..." for="password" name="password" type="password">
+        <input [(ngModel)]="password" class="form-input" placeholder="Enter your password..." for="password" name="password" type="password">
         <div style="display: flex; flex-wrap: wrap;">
             <div class="row" style="padding: 40px 100px; align-items: center; justify-content: center;">
                 <p>Don't have an account? </p>
