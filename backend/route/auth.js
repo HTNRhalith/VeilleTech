@@ -50,8 +50,6 @@ router.post('/inscription', async (req, res) => {
 });
 
 router.post('/connexion', async (req, res) => {
-    res.header('Access-Control-Allow-Origin', '*');
-
     let resultat;
 
     try {
@@ -60,7 +58,6 @@ router.post('/connexion', async (req, res) => {
         resultat = await request.Connexion(Username);
         console.log(resultat)
         if (resultat.length === 0) {
-
             return res.status(404).json({ succes: false });
         }
         password = bcrypt.compareSync(MotDePasse, resultat[0].MotDePasse);
