@@ -19,6 +19,7 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/ajouter-livre', authentification,async (req, res) => {
+  const {titre,mot_cle,video, description,contenu} = req.body;
 
   try {
     const reponse = await requestArticle.insertArticle(titre,mot_cle,video, description,contenu,req.decoded.id)
