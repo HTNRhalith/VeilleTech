@@ -7,18 +7,32 @@
       <li routerLink="home">
         <p>Home</p>
       </li>
-      <li routerLink="articles">
-        <p>Articles</p>
-      </li>
+
       <li routerLink="prices">
         <p>Prices</p>
       </li>
-      <li routerLink="login" style="float: right;">
-        <p>Login</p>
-      </li>
-      <li routerLink="signup" style="float: right;">
-        <p>Sign up</p>
-      </li>
+      <ng-container *ngIf="token === null || token === ''; then notconnected; else connected">
+        
+      </ng-container>
+      <ng-template #notconnected>
+        <li routerLink="login" style="float: right;">
+          <p>Login</p>
+        </li>
+        <li routerLink="signup" style="float: right;">
+          <p>Sign up</p>
+        </li>
+      </ng-template>
+      <ng-template #connected>
+        <li (click)="disconnect()" routerLink="articles"
+          style="float: right; background-color: darkred;">
+          <p>Logout</p>
+        </li>
+        <li routerLink="articles" style="float: right;">
+          <p>Articles</p>
+        </li>
+      </ng-template>
+
+
     </ul>
   </nav>
   <router-outlet></router-outlet>
