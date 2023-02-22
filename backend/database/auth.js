@@ -18,7 +18,6 @@ function CreateUser(nom, prenom, Nom_Utilisateur, MotDePasse) {
 function Connexion(Username) {
     return knex('Profil')
         .where('Nom_Utilisateur', Username)
-        .select('MotDePasse')
 }
 
 function ifUserExists(Username) {

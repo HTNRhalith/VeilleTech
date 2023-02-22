@@ -1,0 +1,25 @@
+<div class="container">
+  <nav>
+    <ul>
+      <li style="background-color: green;">
+        <p class="title">{{title}}</p>
+      </li>
+      <li routerLink="home">
+        <p>Home</p>
+      </li>
+      <li routerLink="articles">
+        <p>Articles</p>
+      </li>
+      <li routerLink="prices">
+        <p>Prices</p>
+      </li>
+      <li routerLink="login" style="float: right;">
+        <p>Login</p>
+      </li>
+      <li routerLink="signup" style="float: right;">
+        <p>Sign up</p>
+      </li>
+    </ul>
+  </nav>
+  <router-outlet></router-outlet>
+</div>

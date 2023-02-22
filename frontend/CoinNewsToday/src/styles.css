@@ -1,0 +1,35 @@
+/* You can add global styles to this file, and also import other style files */
+body {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: white;
+    margin: 0px 0px;
+}
+
+html {
+    background-color: #222222;
+    cursor: pointer;
+}
+
+nav {
+    box-shadow: -6px 0 transparent, 6px 0 transparent, 0 2px 5px -2px black;
+}
+
+.container {
+    align-items: center;
+    justify-content: center;
+}
+
+.row {
+    flex-direction: row;
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+input,
+label {
+    display: block;
+    margin: 10px 5px;
+    font-size: 16px;
+    color: white;
+}
