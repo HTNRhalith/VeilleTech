@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -13,11 +14,13 @@ export class LoginComponent {
     MotDePasse: new FormControl('', Validators.required),
   })
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router : Router) { }
 
   login() {
     this.authService.login(this.formGroup?.value).subscribe((res) => {
       console.log(res);
+      sessionStorage.setItem('token', res.access_token);
+      this.router.navigate(['/home']).then(() => window.location.reload());
     })
   }
 }
