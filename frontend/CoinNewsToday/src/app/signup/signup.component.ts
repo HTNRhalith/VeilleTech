@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-signup',
@@ -6,7 +8,20 @@ import { Component } from '@angular/core';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent {
-  username: string = '';
-  password: string = '';
-  email: string = '';
+  formGroup: FormGroup = new FormGroup({
+    Nom: new FormControl('', Validators.required),
+    Prenom: new FormControl('', Validators.required),
+    Nom_Utilisateur: new FormControl('', Validators.required),
+    MotDePasse: new FormControl('', Validators.required),
+  });
+
+  constructor(private authService: AuthService) { }
+
+  register() {
+    if (this.formGroup?.valid) {
+      this.authService.register(this.formGroup.value).subscribe((res) => {
+        console.log(res);
+      })
+    }
+  }
 }
