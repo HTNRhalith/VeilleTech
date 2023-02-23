@@ -1,1 +1,29 @@
-<p>articles works!</p>
+<div style="margin-bottom: 40px;">
+    <form class="form-container" [formGroup]="formGroup" (ngSubmit)="postArticle()">
+        <h2 style="font-size: 38px; font-weight: bold; text-align: center;">Post an article</h2>
+        <hr>
+        <br>
+        <label for="title">Title</label>
+        <input formControlName="titre" class="form-input" placeholder="Enter a title..." for="title" name="title"
+            type="text">
+        <br>
+        <label for="keyword">Keyword</label>
+        <input formControlName="mot_cle" class="form-input" placeholder="Enter a keyword..." for="keyword"
+            name="keyword" type="text">
+        <br>
+        <label for="video">Video or image</label>
+        <input formControlName="video" for="video" name="keyword" type="file">
+        <br>
+        <label for="description">Description</label>
+        <input formControlName="description" class="form-input" placeholder="Enter a description..." for="description"
+            name="description" type="text">
+        <br>
+        <label for="contenu">Content</label>
+        <textarea formControlName="contenu" style="resize: none;" class="form-input" for="contenu" rows="24"
+            name="contenu"></textarea>
+        <br>
+        <br>
+        <button class="button" type="submit">Post</button>
+    </form>
+</div>
+<br>
