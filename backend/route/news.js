@@ -7,7 +7,7 @@ const request = require("../database/article_scan");
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-  const url = `https://newsapi.org/v2/everything?q=bitcoin&from=2023-01-21&sortBy=publishedAt&apiKey=23b785e4015c42f4a179e72e78decdf0`;
+  const url = `https://newsapi.org/v2/everything?q=bitcoin&from=2023-01-23&sortBy=publishedAt&apiKey=202b1733bc5749cbbf57d855a3d8c6e1`;
   const response = await fetch(url);
   const json = await response.json();
   data = json.articles;
