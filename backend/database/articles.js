@@ -13,6 +13,12 @@ function getArticle(){
 
 }
 
+function getArticleId() {
+    return knex('Article')
+      .select('id')
+      .orderBy('id', 'desc');
+  }
+
 function insertArticle(titre, mot_cle, video, description,contenu,id_profil) {
     return knex('Article')
         .insert({
@@ -43,7 +49,8 @@ module.exports = {
     getArticle,
     supArticle,
     getArticleParId,
-    getArticleParProfil
+    getArticleParProfil,
+    getArticleId
 
     
 };

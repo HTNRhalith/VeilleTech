@@ -14,7 +14,8 @@ export class PricesComponent implements OnInit {
 
   ngOnInit() {
     this.priceService.price().subscribe((res) => {
-      console.log(res);
+      this.data = res
+      // console.log(this.data)
     })
   }
 }

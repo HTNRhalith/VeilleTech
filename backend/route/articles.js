@@ -20,9 +20,10 @@ router.get('/', async (req, res) => {
 
 router.post('/ajouter-livre', authentification,async (req, res) => {
   const {titre,mot_cle,video, description,contenu} = req.body;
-
   try {
-    const reponse = await requestArticle.insertArticle(titre,mot_cle,video, description,contenu,req.decoded.id)
+    const id = await requestArticle.getArticleId();
+    newsId = id[0].id + 1;
+    const reponse = await requestArticle.insertArticle(titre,mot_cle,video, description,contenu,req.decoded.Id)
     return res.status(200).send({
       success: true,
       Message: "Le livre a été ajouté avec succès",
