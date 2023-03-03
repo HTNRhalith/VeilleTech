@@ -1,0 +1,45 @@
+.form-container {
+    padding: 20px;
+    width: 100%;
+    max-width: 500px;
+    margin: auto;
+    background-color: #333333;
+    border-radius: 10px;
+    opacity: 0.8;
+    margin-top: 30px;
+}
+
+.form-input {
+    background-color: #494949;
+    border-radius: 10px;
+    padding: 10px;
+    border: none;
+    width: 95%;
+    margin: auto;
+}
+
+.button {
+    background-color: green;
+    color: white;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 24px;
+    border-radius: 30px;
+    border: none;
+    width: 100%;
+    padding: 10px 40px;
+}
+
+input::file-selector-button {
+    background-color: green;
+    border-radius: 5px;
+    color: white;
+    padding: 6px;
+    border: none;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+textarea {
+    color: white;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}

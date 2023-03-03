@@ -1,0 +1,31 @@
+<div style="display: flex; margin: 0px 100px; margin-top: 100px">
+  <div class="container-home">
+    <h2 class="title">The news</h2>
+    <div *ngFor="let article of nb_art">
+      <a class="row" style="max-height: 200px" [href]="data[article].url">
+        <img [src]="data[article].url_to_image" [title]="data[article].title" />
+        <div
+          class="column"
+          style="overflow: hidden; height: 170px; margin-bottom: 20px"
+        >
+          <h4 class="article-title">{{ data[article].title }}</h4>
+          <p class="article-desc">{{ data[article].description }}</p>
+        </div>
+      </a>
+      <hr />
+    </div>
+    <div *ngFor="let article of our_data">
+      <div class="row" style="max-height: 200px; min-width: 1325px;">
+        <img [src]="article.video" [title]="article.titre" />
+        <div
+          class="column"
+          style="overflow: hidden; height: 170px; margin-bottom: 20px"
+        >
+          <h4 class="article-title">{{ article.titre }}</h4>
+          <p class="article-desc">{{ article.description }}</p>
+        </div>
+      </div>
+      <hr />
+    </div>
+  </div>
+</div>

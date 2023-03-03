@@ -1,0 +1,42 @@
+<h1 style="margin: 20px 20px; text-align: center">Prices</h1>
+<br />
+<table class="table-container">
+  <thead>
+    <tr>
+      <th class="cell" style="width: 50px">#</th>
+      <th class="cell">Name</th>
+      <th class="num-cell">Price</th>
+      <th class="num-cell">1h %</th>
+      <th class="num-cell">24h %</th>
+      <th class="num-cell">7d %</th>
+      <th class="num-cell">Market Cap</th>
+      <th class="num-cell">Volume (24h)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let item of data.data">
+      <tr>
+        <td class="cell">{{ item.cmc_rank }}</td>
+        <td class="cell">{{ item.name }}</td>
+        <td class="num-cell">${{ item.quote.USD.price | number:'1.2-2' }}</td>
+        <td [ngClass]="{'num-cell': true, 'up': item.quote.USD.percent_change_1h > 0, 'down': item.quote.USD.percent_change_1h < 0}">
+          <span *ngIf="item.quote.USD.percent_change_1h > 0">&#8593;</span>
+          <span *ngIf="item.quote.USD.percent_change_1h < 0">&#8595;</span>
+          {{ item.quote.USD.percent_change_1h | number:'1.2-2' }}%
+        </td>
+        <td [ngClass]="{'num-cell': true, 'up': item.quote.USD.percent_change_24h > 0, 'down': item.quote.USD.percent_change_24h < 0}">
+          <span *ngIf="item.quote.USD.percent_change_24h > 0">&#8593;</span>
+          <span *ngIf="item.quote.USD.percent_change_24h < 0">&#8595;</span>
+          {{ item.quote.USD.percent_change_24h | number:'1.2-2' }}%
+        </td>
+        <td [ngClass]="{'num-cell': true, 'up': item.quote.USD.percent_change_7d > 0, 'down': item.quote.USD.percent_change_7d < 0}">
+          <span *ngIf="item.quote.USD.percent_change_7d > 0">&#8593;</span>
+          <span *ngIf="item.quote.USD.percent_change_7d < 0">&#8595;</span>
+          {{ item.quote.USD.percent_change_7d | number:'1.2-2' }}%
+        </td>
+        <td class="num-cell">${{ item.quote.USD.market_cap | number:'1.2-2' }}</td>
+        <td class="num-cell">${{ item.quote.USD.volume_24h | number:'1.2-2' }}</td>
+      </tr>
+    </ng-container>
+  </tbody>
+</table>
