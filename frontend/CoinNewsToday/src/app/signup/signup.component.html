@@ -1,0 +1,23 @@
+<div style="margin-bottom: 40px;">
+    <form class="form-container" [formGroup]="formGroup" (ngSubmit)="register()">
+        <h2 style="font-size: 38px; font-weight: bold; text-align: center;">Sign Up</h2>
+        <hr>
+        <br>
+        <label for="lastname">Last Name</label>
+        <input class="form-input" formControlName="Nom" placeholder="Enter your last name..." for="lastname" name="lastname" type="text">
+        <br>
+        <label for="firstname">First Name</label>
+        <input class="form-input" formControlName="Prenom" placeholder="Enter your first name..." for="firstname" name="firstname" type="text">
+        <br>
+        <label for="username">Username</label>
+        <input class="form-input" formControlName="Nom_Utilisateur" placeholder="Enter your username..." for="username" name="username" type="text">
+        <br>
+        <label for="password">Password</label>
+        <input class="form-input" formControlName="MotDePasse" placeholder="Enter your password..." for="password" name="password" type="password">
+        <div style="display: flex; flex-wrap: wrap;">
+            <br>
+            <button class="button" type="submit">Register</button>
+        </div>
+    </form>
+</div>
+<br>

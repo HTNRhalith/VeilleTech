@@ -1,0 +1,21 @@
+<div style="margin-bottom: 40px;">
+    <form class="form-container" [formGroup]="formGroup" (ngSubmit)="login()">
+        <h2 style="font-size: 38px; font-weight: bold; text-align: center;">Login</h2>
+        <hr>
+        <br>
+        <label for="username">Username</label>
+        <input formControlName="Username" class="form-input" placeholder="Enter your username..." for="username" name="username" type="text">
+        <br>
+        <label for="password">Password</label>
+        <input formControlName="MotDePasse" class="form-input" placeholder="Enter your password..." for="password" name="password" type="password">
+        <div style="display: flex; flex-wrap: wrap;">
+            <div class="row" style="padding: 40px 100px; align-items: center; justify-content: center;">
+                <p>Don't have an account? </p>
+                <p style="color: green; margin-left: 5px; font-weight: bolder; cursor: pointer;" routerLink="/signup"> Register now</p>
+            </div>
+            <br>
+            <button class="button" type="submit">Login</button>
+        </div>
+    </form>
+</div>
+<br>
