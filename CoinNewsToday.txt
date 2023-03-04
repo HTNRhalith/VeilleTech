@@ -1,0 +1,295 @@
+//@version=5
+indicator("CoinNews Today [Method 1]", "CoinNews Today [Method 1]"
+  , overlay = true
+  , max_labels_count = 500
+  , max_lines_count = 500
+  , max_boxes_count = 500
+  , max_bars_back = 500)
+
+color TRANS = #ffffff00
+string MODE          = 'Allows to display historical Structure or only the recent ones'
+string STYLE         = 'Indicator color theme'
+string ZONES         = 'Display premium, discount, and equilibrium zones on chart'
+string SHOW_POINTS   = 'Highlight most recent strong and weak high/low points on the chart'
+string COLOR_CANDLES = 'Display additional candles with a color reflecting the current trend detected by structure'
+
+mode = input.string('Present'
+  , options = ['Present']
+  , group = 'Smart Money Concepts'
+  , tooltip = MODE)
+
+style = input.string('Colored'
+  , options = ['Colored']
+  , group = 'Smart Money Concepts'
+  , tooltip = STYLE)
+
+show_trend = input(false, 'Color Candles'
+  , group = 'Smart Money Concepts'
+  , tooltip = COLOR_CANDLES)
+
+swing_ibull_css = input(#00ff88, ''
+  , inline = 'ibull'
+  , group = 'Internal Structure')
+
+swing_ibear_css = input(#ff0015, ''
+  , inline = 'ibear'
+  , group = 'Internal Structure')
+
+swing_bull_css = input(#00ff88, ''
+  , inline = 'bull'
+  , group = 'Swing Structure')
+
+swing_bear_css = input(#ff0015, ''
+  , inline = 'bear'
+  , group = 'Swing Structure')
+
+length = input.int(50, ''
+  , minval = 10
+  , inline = 'swings'
+  , group = 'Swing Structure')
+
+show_hl_swings = input(true, 'Show Strong/Weak High/Low'
+  , group = 'Swing Structure'
+  , tooltip = SHOW_POINTS)
+
+show_sd = input(false, 'Premium/Discount Zones'
+  , group = 'Premium & Discount Zones'
+  , tooltip = ZONES)
+
+premium_css = input.color(#ff0015, 'Premium Zone'
+  , group = 'Premium Zones')
+
+eq_css = input.color(#b2b5be, 'Equilibrium Zone'
+  , group = 'Equilibrium Zones')
+
+discount_css = input.color(#00ff88, 'Discount Zone'
+  , group = 'Discount Zones')
+
+n = bar_index
+
+atr = ta.atr(200)
+cmean_range = ta.cum(high - low) / n
+
+hl() => [high, low]
+
+get_ohlc()=> [close[1], open[1], high, low, high[2], low[2]]
+
+display_Structure(x, y, txt, css, dashed, down, lbl_size)=>
+    structure_line = line.new(x, y, n, y
+      , color = css
+      , style = dashed ? line.style_dashed : line.style_solid)
+
+    structure_lbl = label.new(int(math.avg(x, n)), y, txt
+      , color = TRANS
+      , textcolor = css
+      , style = down ? label.style_label_down : label.style_label_up
+      , size = lbl_size)
+
+    if mode == 'Present'
+        line.delete(structure_line[1])
+        label.delete(structure_lbl[1])
+
+swings(len)=>
+    var os = 0
+    
+    upper = ta.highest(len)
+    lower = ta.lowest(len)
+
+    os := high[len] > upper ? 0 : low[len] < lower ? 1 : os[1]
+
+    top = os == 0 and os[1] != 0 ? high[len] : 0
+    btm = os == 1 and os[1] != 1 ? low[len] : 0
+
+    [top, btm]
+
+
+get_line_style(style) =>
+    out = switch style
+        '⎯⎯⎯'  => line.style_solid
+        '----' => line.style_dashed
+        '····' => line.style_dotted
+
+var trend = 0, var itrend = 0
+
+var top_y = 0., var top_x = 0
+var btm_y = 0., var btm_x = 0
+
+var itop_y = 0., var itop_x = 0
+var ibtm_y = 0., var ibtm_x = 0
+
+var trail_up = high, var trail_dn = low
+var trail_up_x = 0,  var trail_dn_x = 0
+
+var top_cross = true,  var btm_cross = true
+var itop_cross = true, var ibtm_cross = true
+
+var txt_top = '',  var txt_btm = ''
+
+var bull_css = style == 'Monochrome' ? #b2b5be 
+  : swing_bull_css
+
+var bear_css = style == 'Monochrome' ? #b2b5be 
+  : swing_bear_css
+
+var ibull_css = style == 'Monochrome' ? #b2b5be 
+  : swing_ibull_css
+
+var ibear_css = style == 'Monochrome' ? #b2b5be 
+  : swing_ibear_css
+
+[top, btm] = swings(length)
+[itop, ibtm] = swings(5)
+
+var line extend_top = na
+
+var label extend_top_lbl = label.new(na, na
+  , color = TRANS
+  , textcolor = bear_css
+  , style = label.style_label_down
+  , size = size.tiny)
+
+if top
+    top_cross := true
+    txt_top := top > top_y ? 'HH' : 'LH'
+
+    line.delete(extend_top[1])
+    extend_top := line.new(n-length, top, n, top
+      , color = bear_css)
+
+    top_y := top
+    top_x := n - length
+
+    trail_up := top
+    trail_up_x := n - length
+
+if itop
+    itop_cross := true
+
+    itop_y := itop
+    itop_x := n - 5
+
+trail_up := math.max(high, trail_up)
+trail_up_x := trail_up == high ? n : trail_up_x
+
+if barstate.islast and show_hl_swings
+    line.set_xy1(extend_top, trail_up_x, trail_up)
+    line.set_xy2(extend_top, n + 20, trail_up)
+
+    label.set_x(extend_top_lbl, n + 20)
+    label.set_y(extend_top_lbl, trail_up)
+    label.set_text(extend_top_lbl, trend < 0 ? 'Strong High' : 'Weak High')
+
+var line extend_btm = na 
+
+var label extend_btm_lbl = label.new(na, na
+  , color = TRANS
+  , textcolor = bull_css
+  , style = label.style_label_up
+  , size = size.tiny)
+
+if btm
+    btm_cross := true
+    txt_btm := btm < btm_y ? 'LL' : 'HL'
+    
+    line.delete(extend_btm[1])
+    extend_btm := line.new(n - length, btm, n, btm
+      , color = bull_css)
+
+    btm_y := btm
+    btm_x := n-length
+
+    trail_dn := btm
+    trail_dn_x := n-length
+
+if ibtm
+    ibtm_cross := true
+
+    ibtm_y := ibtm
+    ibtm_x := n - 5
+
+//Trailing minimum
+trail_dn := math.min(low, trail_dn)
+trail_dn_x := trail_dn == low ? n : trail_dn_x
+
+//Set btm extension label/line
+if barstate.islast and show_hl_swings
+    line.set_xy1(extend_btm, trail_dn_x, trail_dn)
+    line.set_xy2(extend_btm, n + 20, trail_dn)
+
+    label.set_x(extend_btm_lbl, n + 20)
+    label.set_y(extend_btm_lbl, trail_dn)
+    label.set_text(extend_btm_lbl, trend > 0 ? 'Strong Low' : 'Weak Low')
+
+var bull_concordant = true
+var bear_concordant = true
+
+var iob_boxes = array.new_box(0)
+var ob_boxes = array.new_box(0)
+
+
+//Premium/Discount/Equilibrium zones
+var premium = box.new(na, na, na, na
+  , bgcolor = color.new(premium_css, 80)
+  , border_color = na)
+
+var premium_lbl = label.new(na, na
+  , text = 'Premium'
+  , color = TRANS
+  , textcolor = premium_css
+  , style = label.style_label_down
+  , size = size.small)
+
+var eq = box.new(na, na, na, na
+  , bgcolor = color.rgb(130, 123, 134, 80)
+  , border_color = na)
+
+var eq_lbl = label.new(na, na
+  , text = 'Equilibrium'
+  , color = TRANS
+  , textcolor = eq_css
+  , style = label.style_label_left
+  , size = size.small)
+
+var discount = box.new(na, na, na, na
+  , bgcolor = color.new(discount_css, 80)
+  , border_color = na)
+
+var discount_lbl = label.new(na, na
+  , text = 'Discount'
+  , color = TRANS
+  , textcolor = discount_css
+  , style = label.style_label_up
+  , size = size.small)
+
+//Show Premium/Discount Areas
+if barstate.islast and show_sd
+    avg = math.avg(trail_up, trail_dn)
+
+    //Set Premiun Areas
+    box.set_lefttop(premium, math.max(top_x, btm_x), trail_up)
+    box.set_rightbottom(premium, n, .90 * trail_up + .10 * trail_dn)
+    label.set_xy(premium_lbl, int(math.avg(math.max(top_x, btm_x), n)), trail_up)
+    
+    //Set discount Areas
+    box.set_lefttop(discount, math.max(top_x, btm_x), .90 * trail_dn + .10 * trail_up)
+    box.set_rightbottom(discount, n, trail_dn)
+    label.set_xy(discount_lbl, int(math.avg(math.max(top_x, btm_x), n)), trail_dn)
+
+     //Set Equilibrium Areas
+    box.set_lefttop(eq, math.max(top_x, btm_x), .5 * trail_up + .5*trail_dn)
+    box.set_rightbottom(eq, n, .5 * trail_dn + .5 * trail_up)
+    label.set_xy(eq_lbl, n, avg)
+
+var color trend_css = na
+
+if show_trend
+    if style == 'Colored'
+        trend_css := itrend == 1 ? bull_css : bear_css
+    else if style == 'Monochrome'
+        trend_css := itrend == 1 ? #b2b5be : #5d606b
+
+plotcandle(open, high, low, close
+  , color = trend_css
+  , wickcolor = trend_css
+  , bordercolor = trend_css
+  , editable = false)
